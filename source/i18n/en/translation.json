@@ -1,0 +1,8 @@
+{
+	"index": {
+		"city_name_input_label": "Search by City Name:"
+	},
+	"weather_report": {
+		"title": "Weather At"
+	}
+}

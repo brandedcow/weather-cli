@@ -1,23 +1,12 @@
 import i18next from 'i18next';
 
+import enTranslation from './en/translation.json' assert {type: 'json'};
+import zhTranslation from './zh/translation.json' assert {type: 'json'};
+
 i18next.init({
 	lng: 'en',
 	resources: {
-		en: {
-			translation: {
-				at: {
-					title_text: 'Weather At',
-					city_input_query: 'Search by City Name: ',
-				},
-			},
-		},
-		de: {
-			translation: {
-				at: {
-					title_text: 'Wetter bei',
-					city_input_query: 'Buscar por nombre de ciudad',
-				},
-			},
-		},
+		en: {translation: enTranslation},
+		zh: {translation: zhTranslation},
 	},
 });

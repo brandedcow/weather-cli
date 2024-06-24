@@ -12,6 +12,9 @@ export class OpenWeather {
 	}
 
 	async geocode(cityName: string, stateCode?: string, countryCode?: string) {
+		console.log('fetch geocode');
+		if (!cityName) return [];
+
 		const requestString = await this._generateRequestURL<DirectGeocodeOptions>(
 			GEO_URL,
 			'direct',
@@ -25,7 +28,8 @@ export class OpenWeather {
 			const response = await axios.get<GeocodeResponse>(requestString);
 
 			return response.data;
-		} catch {
+		} catch (err) {
+			console.log({err});
 			throw new Error('Geocode API Request error');
 		}
 	}
@@ -42,7 +46,13 @@ export class OpenWeather {
 		}
 	}
 
-	async onecall(lat: number, lon: number, parts?: OnecallOptions['exclude']) {
+	async onecall(lat?: number, lon?: number, parts?: OnecallOptions['exclude']) {
+		console.log('fetch weather');
+
+		if (!lat || !lon) {
+			return;
+		}
+
 		try {
 			const requestString = await this._generateRequestURL<OnecallOptions>(
 				DATA_URL,
