@@ -1,6 +1,7 @@
 import React from 'react';
 import {format} from 'date-fns';
 import {Box, Text} from 'ink';
+import {t} from 'i18next';
 
 export function WeatherReport({
 	place,
@@ -14,16 +15,19 @@ export function WeatherReport({
 	return (
 		<Box
 			flexDirection="column"
-			padding={2}
+			paddingX={2}
+			paddingY={1}
 			borderStyle="doubleSingle"
 			borderColor="cyan"
 			gap={1}
 		>
+			<Text>{t('at.title_text')}</Text>
 			<Box flexDirection="column">
 				{place && (
 					<Text>
-						Weather Report for {place.name}, {place.state ?? place.state + ','}{' '}
-						{place.country}
+						{`${place.name}, ` +
+							(place.state ? place.state + ', ' : '') +
+							place.country}
 					</Text>
 				)}
 				<Text>Time: ({format(new Date(data.dt * 1000), 'P | p')})</Text>
@@ -52,3 +56,5 @@ export function WeatherReport({
 		</Box>
 	);
 }
+
+WeatherReport.Current = () => {};
