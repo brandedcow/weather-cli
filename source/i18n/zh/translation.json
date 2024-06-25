@@ -1,8 +1,14 @@
 {
 	"index": {
-		"city_name_input_label": "Search by City Name:"
+		"city_name_input_label": "城市名:"
 	},
 	"weather_report": {
-		"title": "天氣預報"
+		"Title": "天氣預報",
+		"Time": "時間",
+		"Sunrise": "日出",
+		"Sunset": "日落",
+		"Temperature": "溫度",
+		"Humidity": "濕度",
+		"Wind": "風"
 	}
 }

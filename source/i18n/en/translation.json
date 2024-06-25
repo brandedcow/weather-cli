@@ -3,6 +3,12 @@
 		"city_name_input_label": "Search by City Name:"
 	},
 	"weather_report": {
-		"title": "Weather At"
+		"Title": "Weather At",
+		"Time": "Time",
+		"Sunrise": "Sunrise",
+		"Sunset": "Sunset",
+		"Temperature": "Temperature",
+		"Humidity": "Humidity",
+		"Wind": "Wind"
 	}
 }
