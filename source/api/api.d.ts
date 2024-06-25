@@ -11,6 +11,21 @@ type GeocodeData = {
 
 type GeocodeResponse = GeocodeData[];
 
+type OneCallHourlyData = {
+	dt: number;
+	temp: number;
+	feels_like: number;
+	pressure: number;
+	humidity: number;
+	dew_point: number;
+	uvi: number;
+	clouds: number;
+	visibility: number;
+	wind_speed: number;
+	wind_deg: number;
+	pop: number;
+};
+
 type OneCallResponse = {
 	current: {
 		clouds: number;
@@ -28,6 +43,7 @@ type OneCallResponse = {
 		wind_deg: number;
 		wind_speed: number;
 	};
+	hourly: OneCallHourlyData[];
 	lat: number;
 	lon: number;
 	minutely: {
