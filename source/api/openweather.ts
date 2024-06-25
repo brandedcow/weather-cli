@@ -47,7 +47,11 @@ export class OpenWeather {
 		}
 	}
 
-	async onecall(lat?: number, lon?: number, parts?: OnecallOptions['exclude']) {
+	async onecall(
+		lat?: number,
+		lon?: number,
+		parts?: OnecallOptions['exclude'],
+	): Promise<OneCallResponse | undefined> {
 		console.log('fetch weather');
 
 		if (!lat || !lon) {

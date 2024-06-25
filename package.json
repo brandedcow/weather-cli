@@ -20,6 +20,7 @@
 	"dependencies": {
 		"@inkjs/ui": "^2.0.0",
 		"@tanstack/react-query": "^5.45.1",
+		"asciichart": "^1.5.25",
 		"axios": "^1.7.2",
 		"conf": "^13.0.1",
 		"date-fns": "^3.6.0",
@@ -35,6 +36,7 @@
 	},
 	"devDependencies": {
 		"@sindresorhus/tsconfig": "^3.0.1",
+		"@types/asciichart": "^1.5.8",
 		"@types/lodash": "^4.17.5",
 		"@types/react": "^18.0.32",
 		"@types/uuid": "^10.0.0",

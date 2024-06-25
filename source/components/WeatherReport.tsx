@@ -7,6 +7,8 @@ import {API} from '../api/openweather.js';
 import {Spinner} from '@inkjs/ui';
 import {config} from '../config.js';
 import {t} from 'i18next';
+import {CurrentWeather} from './CurrentWeather.js';
+import {PrecipitationForecast} from './PrecipitationForecast.js';
 
 type Props = {
 	city: GeocodeData;
@@ -44,7 +46,7 @@ export function WeatherReport({city}: Props) {
 		return <Spinner />;
 	}
 
-	const {current} = weatherData;
+	const {current, minutely} = weatherData;
 
 	return (
 		<Box
@@ -55,45 +57,25 @@ export function WeatherReport({city}: Props) {
 			borderColor="cyan"
 			gap={1}
 		>
-			<Text>{t('weather_report.Title')}</Text>
+			<Text>
+				{t('weather_report.Title')}{' '}
+				{format(new Date(current.dt * 1000), 'P, p')}
+			</Text>
 			<Box flexDirection="column">
 				<Text>
-					{`${local_names[currentLocale] ? local_names[currentLocale] : name}`}
+					{`${
+						local_names && local_names[currentLocale]
+							? local_names[currentLocale]
+							: name
+					}`}
 				</Text>
 				<Text>{`${(state ? state + ', ' : '') + country}`}</Text>
-				<Text>
-					{t('weather_report.Time')}: (
-					{format(new Date(current.dt * 1000), 'P | p')})
-				</Text>
 			</Box>
-			<Box flexDirection="column">
-				{current.weather.length > 0 && (
-					<Text>
-						{current.weather[0]?.main}: {current.weather[0]?.description}
-					</Text>
-				)}
-				<Text>
-					{t('weather_report.Sunrise')}:{' '}
-					{format(new Date(current.sunrise * 1000), 'p')}
-				</Text>
-				<Text>
-					{t('weather_report.Sunset')}:{' '}
-					{format(new Date(current.sunset * 1000), 'p')}
-				</Text>
-			</Box>
+			<CurrentWeather data={current} />
 
-			<Box flexDirection="column">
-				<Text>
-					{t('weather_report.Temperature')}: {current.temp} F (feels like{' '}
-					{current.feels_like} F)
-				</Text>
-				<Text>
-					{t('weather_report.Humidity')}: {current.humidity}%
-				</Text>
-				<Text>
-					{t('weather_report.Wind')}: {current.wind_speed} mph
-				</Text>
-			</Box>
+			{minutely && minutely.length > 0 && (
+				<PrecipitationForecast data={minutely} />
+			)}
 		</Box>
 	);
 }

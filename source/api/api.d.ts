@@ -30,6 +30,10 @@ type OneCallResponse = {
 	};
 	lat: number;
 	lon: number;
+	minutely: {
+		dt: number;
+		precipitation: number;
+	}[];
 	timezone: string;
 	timezone_offset: number;
 };
