@@ -32,13 +32,14 @@ export function WeatherReport({city}: Props) {
 
 	useEffect(() => {
 		const fetchInterval = setInterval(() => {
+			console.log('refetching');
 			refetch();
-		}, 60000);
+		}, 900000);
 
 		return () => {
 			clearInterval(fetchInterval);
 		};
-	});
+	}, []);
 
 	if (error || !weatherData) {
 		return <Error message="No Weather Data" />;
@@ -59,10 +60,13 @@ export function WeatherReport({city}: Props) {
 			borderColor="cyan"
 			gap={1}
 		>
-			<Text>
-				{t('weather_report.Title')}{' '}
-				{format(new Date(current.dt * 1000), 'P, p')}
-			</Text>
+			<Box flexDirection="column">
+				<Text>
+					{t('weather_report.Title')}{' '}
+					{format(new Date(current.dt * 1000), 'P, p')}
+				</Text>
+			</Box>
+
 			<Box flexDirection="column">
 				<Text>
 					{`${
