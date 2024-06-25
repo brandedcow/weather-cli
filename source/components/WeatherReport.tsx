@@ -10,6 +10,7 @@ import {t} from 'i18next';
 import {CurrentWeather} from './CurrentWeather.js';
 import {PrecipitationForecast} from './PrecipitationForecast.js';
 import {TemperatureForecast} from './TemperatureForecast.js';
+import {WeekForecast} from './WeekForecast.js';
 
 type Props = {
 	city: GeocodeData;
@@ -47,7 +48,7 @@ export function WeatherReport({city}: Props) {
 		return <Spinner />;
 	}
 
-	const {current, minutely, hourly} = weatherData;
+	const {current, minutely, hourly, daily} = weatherData;
 
 	return (
 		<Box
@@ -75,6 +76,7 @@ export function WeatherReport({city}: Props) {
 			<CurrentWeather data={current} />
 			<PrecipitationForecast data={minutely} />
 			<TemperatureForecast data={hourly} />
+			<WeekForecast data={daily} />
 		</Box>
 	);
 }
