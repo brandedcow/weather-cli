@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {config} from '../config.js';
 
 const DATA_URL = 'https://api.openweathermap.org/data/3.0';
 const GEO_URL = 'http://api.openweathermap.org/geo/1.0';
@@ -62,6 +63,7 @@ export class OpenWeather {
 					lat,
 					lon,
 					units: 'imperial',
+					lang: config.get('locale'),
 				},
 			);
 
