@@ -1,22 +1,27 @@
+import process from 'node:process';
 import axios from 'axios';
 import {config} from '../config.js';
 
-const DATA_URL = 'https://api.openweathermap.org/data/3.0';
-const GEO_URL = 'http://api.openweathermap.org/geo/1.0';
-const API_KEY = '90ecbbe36f8ee323755abec04af5189e';
-
 export class OpenWeather {
 	private readonly apiKey: string;
+	private readonly geoURL: string;
+	private readonly dataURL: string;
 
-	constructor(key: string) {
+	constructor(key?: string, geoURL?: string, dataURL?: string) {
+		if (!key || !geoURL || !dataURL) {
+			throw new Error('Missing env vars');
+		}
+
 		this.apiKey = key;
+		this.geoURL = geoURL;
+		this.dataURL = dataURL;
 	}
 
 	async geocode(cityName: string, stateCode?: string, countryCode?: string) {
 		if (!cityName) return [];
 
 		const requestString = await this._generateRequestURL<DirectGeocodeOptions>(
-			GEO_URL,
+			this.geoURL,
 			'direct',
 			{
 				limit: 10,
@@ -45,7 +50,7 @@ export class OpenWeather {
 
 		try {
 			const requestString = await this._generateRequestURL<OnecallOptions>(
-				DATA_URL,
+				this.dataURL,
 				'onecall',
 				{
 					exclude: parts,
@@ -100,4 +105,6 @@ export class OpenWeather {
 	}
 }
 
-export const API = new OpenWeather(API_KEY);
+const {DATA_URL, GEO_URL, API_KEY} = process.env;
+
+export const API = new OpenWeather(API_KEY, GEO_URL, DATA_URL);

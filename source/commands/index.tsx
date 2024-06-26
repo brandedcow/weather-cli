@@ -6,6 +6,7 @@ import {TextInput} from '@inkjs/ui';
 import {argument, option} from 'pastel';
 import {changeLanguage, t} from 'i18next';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
+import 'dotenv/config'; // eslint-disable-line n/file-extension-in-import,import/no-unassigned-import
 import {config} from '../config.js';
 import {CitySelect} from '../components/CitySelect.js';
 import {useWeatherStore} from '../store/useWeatherStore.js';
