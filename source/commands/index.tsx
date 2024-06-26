@@ -16,13 +16,13 @@ const queryClient = new QueryClient();
 
 export const args = zod
 	.array(zod.string())
-	.optional()
 	.describe(
 		argument({
 			name: 'City name',
 			description: 'Input after command is read city name, can include spaces.',
 		}),
-	);
+	)
+	.optional();
 
 export const options = zod.object({
 	locale: zod

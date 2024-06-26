@@ -13,7 +13,6 @@ export class OpenWeather {
 	}
 
 	async geocode(cityName: string, stateCode?: string, countryCode?: string) {
-		console.log('fetch geocode');
 		if (!cityName) return [];
 
 		const requestString = await this._generateRequestURL<DirectGeocodeOptions>(
@@ -40,8 +39,6 @@ export class OpenWeather {
 		lon?: number,
 		parts?: OnecallOptions['exclude'],
 	): Promise<OneCallResponse | undefined> {
-		console.log('fetch weather');
-
 		if (!lat || !lon) {
 			return;
 		}

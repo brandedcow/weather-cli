@@ -8,8 +8,8 @@ type WeatherStore = {
 };
 
 export const useWeatherStore = create<WeatherStore>(set => ({
-	selectedCity: null,
-	data: null,
+	selectedCity: undefined,
+	data: undefined,
 	setSelectedCity(selectedCity) {
 		set(state => ({...state, selectedCity}));
 	},
