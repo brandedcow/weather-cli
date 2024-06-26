@@ -1,9 +1,9 @@
 import Conf from 'conf';
 
-type configSchema = {
+type ConfigSchema = {
 	locale: string;
 };
 
-export const config = new Conf<configSchema>({
+export const config = new Conf<ConfigSchema>({
 	projectName: 'weather-cli',
 });

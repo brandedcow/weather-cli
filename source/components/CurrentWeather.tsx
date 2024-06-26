@@ -4,7 +4,7 @@ import {format} from 'date-fns';
 import {t} from 'i18next';
 
 type Props = {
-	data: OneCallResponse['current'];
+	readonly data: OneCallResponse['current'];
 };
 
 export function CurrentWeather({data}: Props) {

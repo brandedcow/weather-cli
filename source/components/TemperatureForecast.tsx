@@ -3,7 +3,7 @@ import {Box, Text} from 'ink';
 import asciichart from 'asciichart';
 
 type Props = {
-	data?: OneCallHourlyData[] | null;
+	readonly data?: OneCallHourlyData[] | undefined;
 };
 
 export function TemperatureForecast({data}: Props) {

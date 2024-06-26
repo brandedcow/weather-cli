@@ -3,7 +3,7 @@ import {Box} from 'ink';
 import {DailyForecastCard} from './DailyForecastCard.js';
 
 type Props = {
-	data: OneCallResponse['daily'];
+	readonly data: OneCallResponse['daily'];
 };
 
 export function WeekForecast({data}: Props) {

@@ -4,13 +4,13 @@ import zod from 'zod';
 import _ from 'lodash';
 import {TextInput} from '@inkjs/ui';
 import {argument, option} from 'pastel';
-import i18next, {t} from 'i18next';
-import {config} from '../config.js';
-import '../i18n/index.js';
+import {changeLanguage, t} from 'i18next';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
+import {config} from '../config.js';
 import {CitySelect} from '../components/CitySelect.js';
 import {useWeatherStore} from '../store/useWeatherStore.js';
 import {WeatherReport} from '../components/WeatherReport.js';
+import '../i18n/index.js'; // eslint-disable-line import/no-unassigned-import
 
 const queryClient = new QueryClient();
 
@@ -37,8 +37,8 @@ export const options = zod.object({
 });
 
 type Props = {
-	args: zod.infer<typeof args>;
-	options: zod.infer<typeof options>;
+	readonly args: zod.infer<typeof args>;
+	readonly options: zod.infer<typeof options>;
 };
 
 export default function Index({args, options}: Props) {
@@ -54,14 +54,14 @@ function IndexComponent({args, options}: Props) {
 	const {selectedCity, setSelectedCity} = useWeatherStore();
 
 	const handleChange = (value: string) => {
-		setSelectedCity(JSON.parse(value));
+		setSelectedCity(JSON.parse(value) as GeocodeData);
 	};
 
 	useEffect(() => {
 		if (options.locale) config.set('locale', options.locale);
 		const storedLocale = config.get('locale');
-		if (storedLocale) i18next.changeLanguage(storedLocale);
-	});
+		if (storedLocale) void changeLanguage(storedLocale);
+	}, [options.locale]);
 
 	return (
 		<Box flexDirection="column" gap={1} margin={1}>

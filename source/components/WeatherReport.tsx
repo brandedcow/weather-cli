@@ -1,19 +1,19 @@
 import React, {useEffect} from 'react';
 import {format} from 'date-fns';
 import {Box, Text} from 'ink';
-import {Error} from './Error.js';
 import {useQuery} from '@tanstack/react-query';
-import {API} from '../api/openweather.js';
 import {Spinner} from '@inkjs/ui';
-import {config} from '../config.js';
 import {t} from 'i18next';
+import {API} from '../api/openweather.js';
+import {config} from '../config.js';
+import {Error} from './Error.js';
 import {CurrentWeather} from './CurrentWeather.js';
 import {PrecipitationForecast} from './PrecipitationForecast.js';
 import {TemperatureForecast} from './TemperatureForecast.js';
 import {WeekForecast} from './WeekForecast.js';
 
 type Props = {
-	city: GeocodeData;
+	readonly city: GeocodeData;
 };
 
 export function WeatherReport({city}: Props) {
@@ -25,23 +25,24 @@ export function WeatherReport({city}: Props) {
 		refetch,
 	} = useQuery({
 		queryKey: ['weatherData', lat, lon],
-		queryFn: () => API.onecall(lat, lon),
+		queryFn: async () => API.onecall(lat, lon),
 	});
 
 	const currentLocale = config.get('locale');
+	const localName = local_names ? local_names[currentLocale] : name;
 
 	useEffect(() => {
-		const fetchInterval = setInterval(() => {
+		const fetchInterval = setInterval(async () => {
 			console.log('refetching');
-			refetch();
-		}, 900000);
+			await refetch();
+		}, 900_000);
 
 		return () => {
 			clearInterval(fetchInterval);
 		};
-	}, []);
+	}, [refetch]);
 
-	if (error || !weatherData) {
+	if (error ?? !weatherData) {
 		return <Error message="No Weather Data" />;
 	}
 
@@ -68,13 +69,7 @@ export function WeatherReport({city}: Props) {
 			</Box>
 
 			<Box flexDirection="column">
-				<Text>
-					{`${
-						local_names && local_names[currentLocale]
-							? local_names[currentLocale]
-							: name
-					}`}
-				</Text>
+				<Text>{localName}</Text>
 				<Text>{`${(state ? state + ', ' : '') + country}`}</Text>
 			</Box>
 			<CurrentWeather data={current} />

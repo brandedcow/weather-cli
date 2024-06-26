@@ -65,7 +65,9 @@
 		"extends": "xo-react",
 		"prettier": true,
 		"rules": {
-			"react/prop-types": "off"
+			"react/prop-types": "off",
+			"unicorn/filename-case": "off",
+			"@typescript-eslint/naming-convention": "off"
 		}
 	},
 	"prettier": "@vdemedes/prettier-config"

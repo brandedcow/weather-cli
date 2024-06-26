@@ -6,7 +6,7 @@ const GEO_URL = 'http://api.openweathermap.org/geo/1.0';
 const API_KEY = '90ecbbe36f8ee323755abec04af5189e';
 
 export class OpenWeather {
-	private apiKey: string;
+	private readonly apiKey: string;
 
 	constructor(key: string) {
 		this.apiKey = key;
@@ -29,20 +29,8 @@ export class OpenWeather {
 			const response = await axios.get<GeocodeResponse>(requestString);
 
 			return response.data;
-		} catch (err) {
-			console.log({err});
-			throw new Error('Geocode API Request error');
-		}
-	}
-
-	async geocodeZip(zip: string) {
-		try {
-			const response = await axios.get<GeocodeData>(
-				`${GEO_URL}/zip?zip=${zip}&appid=${this.apiKey}`,
-			);
-			return response.data;
 		} catch (error) {
-			console.error(error);
+			console.log({error});
 			throw new Error('Geocode API Request error');
 		}
 	}
@@ -71,7 +59,7 @@ export class OpenWeather {
 				},
 			);
 
-			const response = await axios.get(requestString);
+			const response = await axios.get<OneCallResponse>(requestString);
 			return response.data;
 		} catch (error) {
 			console.error(error);
@@ -79,7 +67,7 @@ export class OpenWeather {
 		}
 	}
 
-	private async _generateRequestURL<T extends object>(
+	private async _generateRequestURL<T extends Record<string, unknown>>(
 		base: string,
 		endpoint: string,
 		options: T,
@@ -98,9 +86,9 @@ export class OpenWeather {
 				requestString += `${property}=${options[property]}&`;
 			} else if (Array.isArray(options[property])) {
 				let propertyString = `${property}=`;
-				for (const subStr of options[property] as Array<string>) {
-					if (subStr) {
-						propertyString += `${subStr},`;
+				for (const subString of options[property] as string[]) {
+					if (subString) {
+						propertyString += `${subString},`;
 					}
 				}
 

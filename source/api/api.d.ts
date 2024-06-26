@@ -1,9 +1,7 @@
 type GeocodeData = {
 	country: string;
 	lat: number;
-	local_names: {
-		[key: string]: string;
-	};
+	local_names: Record<string, string>;
 	lon: number;
 	name: string;
 	state: string;
@@ -81,7 +79,7 @@ type OneCallResponse = {
 		temp: number;
 		uvi: number;
 		visibility: number;
-		weather: {id: string; main: string; description: string; icon: string}[];
+		weather: Array<{id: string; main: string; description: string; icon: string}>;
 		wind_deg: number;
 		wind_speed: number;
 	};
@@ -89,10 +87,10 @@ type OneCallResponse = {
 	hourly: OneCallHourlyData[];
 	lat: number;
 	lon: number;
-	minutely: {
+	minutely: Array<{
 		dt: number;
 		precipitation: number;
-	}[];
+	}>;
 	timezone: string;
 	timezone_offset: number;
 };

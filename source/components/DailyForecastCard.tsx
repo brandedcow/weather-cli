@@ -3,9 +3,9 @@ import {Box, Text} from 'ink';
 import {format} from 'date-fns';
 
 type Props = {
-	time: number;
-	min: number;
-	max: number;
+	readonly time: number;
+	readonly min: number;
+	readonly max: number;
 };
 export function DailyForecastCard({time, min, max}: Props) {
 	return (

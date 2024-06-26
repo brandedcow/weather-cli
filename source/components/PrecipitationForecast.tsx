@@ -3,7 +3,7 @@ import asciichart from 'asciichart';
 import {Box, Text} from 'ink';
 
 type Props = {
-	data?: {dt: number; precipitation: number}[] | null;
+	readonly data?: Array<{dt: number; precipitation: number}> | undefined;
 };
 export function PrecipitationForecast({data}: Props) {
 	if (!data) return null;
